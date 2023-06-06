@@ -1,0 +1,37 @@
+<div class="form-container">
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <label for="name">Name</label>
+      <input type="text" formControlName="name" id="name" name="name" required placeholder="Enter your name">
+      <div class="field-erros" *ngIf="signUpForm.get('name')?.invalid && (signUpForm.get('name')?.dirty || signUpForm.get('name')?.touched)">
+        <span class="error">Name is required</span>
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" id="email" name="email" required placeholder="Enter your email">
+      <div class="field-erros" *ngIf="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)">
+        <span class="error">Email is required</span>
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" id="password" name="password" required
+        placeholder="Enter your password">
+      <div class="field-erros" *ngIf="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)" >
+        <span class="error">Password is required</span>
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="confirm_password">Confirm Password</label>
+      <input type="password" formControlName="confirm_password" id="confirm_password" name="confirm_password" required
+        placeholder="Confirm your password">
+      <div class="field-erros" *ngIf="signUpForm.get('confirm_password')?.invalid && (signUpForm.get('confirm_password')?.dirty || signUpForm.get('confirm_password')?.touched)">
+        <span class="error">Confirm Password is required</span>
+      </div>
+    </div>
+    <div class="form-field">
+      <button type="submit" [disabled]="!signUpForm.valid">Sign Up</button>
+    </div>
+  </form>
+</div>
