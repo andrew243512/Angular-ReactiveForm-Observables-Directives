@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@e-commerce/shared",
+  "projectType": "library",
+  "root": "packages/shared",
+  "sourceRoot": "packages/shared/src"
+}

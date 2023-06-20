@@ -1,0 +1,47 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "e-commerce-back",
+  "root": "apps/e-commerce-back",
+  "sourceRoot": "apps/e-commerce-back/src",
+  "projectType": "application",
+  "targets": {
+    "clean": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "clean"
+      },
+      "dependsOn": [ "^clean" ]
+    },
+    "lint": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "lint"
+      },
+      "dependsOn": [ "^lint" ]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx run @e-commerce/shared:watch",
+            "forwardAllArgs": true
+          },
+          {
+            "command": "nx run @e-commerce/styles:watch",
+            "forwardAllArgs": true
+          },
+          {
+            "command": "nx run e-commerce-back:start",
+            "forwardAllArgs": true
+          }
+        ],
+        "parallel": true
+      },
+      "dependsOn": [ "^build" ]
+    }
+  },
+  "implicitDependencies": [
+    "@e-commerce/shared"
+  ]
+}

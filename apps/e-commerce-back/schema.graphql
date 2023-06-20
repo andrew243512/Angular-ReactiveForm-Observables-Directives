@@ -1,0 +1,48 @@
+scalar Date
+
+type Suppliers {
+  address: String
+  zipCode: String
+  city: String
+  country: String
+  email: String
+  id: ID!
+  name: String
+  phone: String
+  website: String
+  notes: String
+  status: Boolean
+  createdAt: Date! 
+  updatedAt: Date! 
+}
+
+type Customer {
+  id: String!
+  address: String
+  zipCode: String
+  city: String
+  country: String
+  birthday: Date! 
+  creditCardExpMonth: Int
+  creditCardExpYear: Int
+  creditCardNumber: Int
+  email: String
+  gender: String
+  name: String
+  phoneNumber: String
+  notifications: Boolean
+  shipAddress: String
+  shipCity: String
+  shipCountry: String
+  createdAt: Date! 
+  updatedAt: Date! 
+}
+
+type Query {
+  suppliers: [Suppliers]
+  customer(id: String!): Customer
+}
+
+# type Mutation {
+#   addBook(title: String, author: String): Book
+# }

@@ -1,0 +1,21 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "../../.eslintrc.json"
+    ],
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "root": true,
+    "rules": {
+      "@typescript-eslint/no-inferrable-types": "warn",
+      "no-empty": "warn",
+      "no-extra-boolean-cast": "warn",
+      "no-unsafe-finally": "warn",
+      "no-useless-catch": "warn",
+      "no-useless-escape": "warn",
+      "require-yield": "warn"
+    }
+  }

@@ -1,0 +1,47 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "e-commerce-front",
+  "root": "apps/e-commerce-front",
+  "sourceRoot": "apps/e-commerce-front/src",
+  "projectType": "application",
+  "targets": {
+    "clean": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "clean"
+      },
+      "dependsOn": [ "^clean" ]
+    },
+    "lint": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "lint"
+      },
+      "dependsOn": [ "^lint" ]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx run @e-commerce/shared:watch",
+            "forwardAllArgs": true
+          },
+          {
+            "command": "nx run @e-commerce/styles:watch",
+            "forwardAllArgs": true
+          },
+          {
+            "command": "nx run e-commerce-front:start",
+            "forwardAllArgs": true
+          }
+        ],
+        "parallel": true
+      },
+      "dependsOn": [ "^build" ]
+    }
+  },
+  "implicitDependencies": [
+    "@e-commerce/shared"
+  ]
+}
