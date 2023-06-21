@@ -16,6 +16,12 @@ type Suppliers {
   updatedAt: Date! 
 }
 
+type UserRecord {
+  email: String!
+  phoneNumber: String!
+  displayName: String!
+}
+
 type Customer {
   id: String!
   address: String
@@ -43,6 +49,6 @@ type Query {
   customer(id: String!): Customer
 }
 
-# type Mutation {
-#   addBook(title: String, author: String): Book
-# }
+type Mutation {
+  signUp(name: String, email: String, password: String, phone: String): UserRecord
+}

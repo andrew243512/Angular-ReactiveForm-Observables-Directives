@@ -40,6 +40,19 @@ export type Customer = {
   zipCode?: Maybe<Scalars['String']['output']>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  signUp?: Maybe<UserRecord>;
+};
+
+
+export type MutationSignUpArgs = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   customer?: Maybe<Customer>;
@@ -66,6 +79,13 @@ export type Suppliers = {
   updatedAt: Scalars['Date']['output'];
   website?: Maybe<Scalars['String']['output']>;
   zipCode?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserRecord = {
+  __typename?: 'UserRecord';
+  displayName: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  phoneNumber: Scalars['String']['output'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -145,9 +165,11 @@ export type ResolversTypes = ResolversObject<{
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Suppliers: ResolverTypeWrapper<Suppliers>;
+  UserRecord: ResolverTypeWrapper<UserRecord>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -157,9 +179,11 @@ export type ResolversParentTypes = ResolversObject<{
   Date: Scalars['Date']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
+  Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
   Suppliers: Suppliers;
+  UserRecord: UserRecord;
 }>;
 
 export type CustomerResolvers<ContextType = any, ParentType extends ResolversParentTypes['Customer'] = ResolversParentTypes['Customer']> = ResolversObject<{
@@ -189,6 +213,10 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'Date';
 }
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  signUp?: Resolver<Maybe<ResolversTypes['UserRecord']>, ParentType, ContextType, Partial<MutationSignUpArgs>>;
+}>;
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   customer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<QueryCustomerArgs, 'id'>>;
   suppliers?: Resolver<Maybe<Array<Maybe<ResolversTypes['Suppliers']>>>, ParentType, ContextType>;
@@ -211,10 +239,19 @@ export type SuppliersResolvers<ContextType = any, ParentType extends ResolversPa
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UserRecordResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserRecord'] = ResolversParentTypes['UserRecord']> = ResolversObject<{
+  displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phoneNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = any> = ResolversObject<{
   Customer?: CustomerResolvers<ContextType>;
   Date?: GraphQLScalarType;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Suppliers?: SuppliersResolvers<ContextType>;
+  UserRecord?: UserRecordResolvers<ContextType>;
 }>;
 
