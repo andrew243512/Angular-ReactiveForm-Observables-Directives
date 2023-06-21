@@ -21,3 +21,11 @@ export interface ICustomer {
   createdAt: Timestamp;
   updatedAt: Timestamp;
 }
+
+
+export interface IUserRecord {
+  email: string
+  password: string
+  phoneNumber: string
+  displayName: string
+}
