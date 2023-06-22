@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
+import { readFileSync } from 'fs';
 
 const app = require('express')();
 const serviceAccount = require('../serviceAccountKey.json');
@@ -9,52 +10,53 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const typeDefs = gql`
-  scalar Date
+const typeDefs = readFileSync('./schema.graphql', { encoding: 'utf-8' });
+// const typeDefs = gql`
+//   scalar Date
 
-  type Suppliers {
-    address: String
-    zipCode: String
-    city: String
-    country: String
-    email: String
-    id: ID!
-    name: String
-    phone: String
-    website: String
-    notes: String
-    status: Boolean
-    createdAt: Date!
-    updatedAt: Date!
-  }
+//   type Suppliers {
+//     address: String
+//     zipCode: String
+//     city: String
+//     country: String
+//     email: String
+//     id: ID!
+//     name: String
+//     phone: String
+//     website: String
+//     notes: String
+//     status: Boolean
+//     createdAt: Date!
+//     updatedAt: Date!
+//   }
 
-  type Customer {
-    id: String!
-    address: String
-    zipCode: String
-    city: String
-    country: String
-    birthday: Date!
-    creditCardExpMonth: Int
-    creditCardExpYear: Int
-    creditCardNumber: Int
-    email: String
-    gender: String
-    name: String
-    phoneNumber: String
-    notifications: Boolean
-    shipAddress: String
-    shipCity: String
-    shipCountry: String
-    createdAt: Date!
-    updatedAt: Date!
-  }
+//   type Customer {
+//     id: String!
+//     address: String
+//     zipCode: String
+//     city: String
+//     country: String
+//     birthday: Date!
+//     creditCardExpMonth: Int
+//     creditCardExpYear: Int
+//     creditCardNumber: Int
+//     email: String
+//     gender: String
+//     name: String
+//     phoneNumber: String
+//     notifications: Boolean
+//     shipAddress: String
+//     shipCity: String
+//     shipCountry: String
+//     createdAt: Date!
+//     updatedAt: Date!
+//   }
 
-  type Query {
-    suppliers: [Suppliers]
-    customer(id: String!): Customer
-  }
-`;
+//   type Query {
+//     suppliers: [Suppliers]
+//     customer(id: String!): Customer
+//   }
+// `;
 
 const resolvers = {
   Query: {

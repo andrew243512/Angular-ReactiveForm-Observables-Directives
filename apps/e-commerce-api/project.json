@@ -1,8 +1,8 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "e-commerce-back",
-  "root": "apps/e-commerce-back",
-  "sourceRoot": "apps/e-commerce-back/src",
+  "name": "e-commerce-api",
+  "root": "apps/e-commerce-api",
+  "sourceRoot": "apps/e-commerce-api/src",
   "projectType": "application",
   "targets": {
     "clean": {
@@ -32,7 +32,7 @@
             "forwardAllArgs": true
           },
           {
-            "command": "nx run e-commerce-back:start",
+            "command": "nx run e-commerce-api:start",
             "forwardAllArgs": true
           }
         ],
