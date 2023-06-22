@@ -24,8 +24,8 @@ export interface ICustomer {
 
 
 export interface IUserRecord {
-  email: string
-  password: string
-  phoneNumber: string
-  displayName: string
+  email: string;
+  password: string;
+  phone: string;
+  name: string;
 }

@@ -13,7 +13,7 @@ admin.initializeApp({
 const typeDefs = readFileSync('./schema.graphql', { encoding: 'utf-8' });
 
 // Resolvers define how to fetch the types defined in your schema.
-const resolvers = {
+export const resolvers = {
   Query: {
     async suppliers() {
       try {
