@@ -1,3 +1,4 @@
+import { ValidationError, ApolloError } from 'apollo-server';
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import { ApolloServer } from 'apollo-server-express';
@@ -11,53 +12,6 @@ admin.initializeApp({
 });
 
 const typeDefs = readFileSync('./schema.graphql', { encoding: 'utf-8' });
-// const typeDefs = gql`
-//   scalar Date
-
-//   type Suppliers {
-//     address: String
-//     zipCode: String
-//     city: String
-//     country: String
-//     email: String
-//     id: ID!
-//     name: String
-//     phone: String
-//     website: String
-//     notes: String
-//     status: Boolean
-//     createdAt: Date!
-//     updatedAt: Date!
-//   }
-
-//   type Customer {
-//     id: String!
-//     address: String
-//     zipCode: String
-//     city: String
-//     country: String
-//     birthday: Date!
-//     creditCardExpMonth: Int
-//     creditCardExpYear: Int
-//     creditCardNumber: Int
-//     email: String
-//     gender: String
-//     name: String
-//     phoneNumber: String
-//     notifications: Boolean
-//     shipAddress: String
-//     shipCity: String
-//     shipCountry: String
-//     createdAt: Date!
-//     updatedAt: Date!
-//   }
-
-//   type Query {
-//     suppliers: [Suppliers]
-//     customer(id: String!): Customer
-//   }
-// `;
-
 const resolvers = {
   Query: {
     suppliers: async () => {
@@ -69,6 +23,35 @@ const resolvers = {
       return snapshot.data();
     },
   },
+  Mutation: {
+    async signUp(_: null, args: { name: string; email: string; password: string; phone: string }) {
+      try {
+        const user = await admin.auth().createUser({
+          email: args.email,
+          password: args.password,
+          emailVerified: false,
+          phoneNumber: args.phone,
+          displayName: args.name,
+          photoURL: 'http://www.example.com/12345678/photo.png',
+          disabled: false,
+        });
+
+        const muts = await admin.firestore().collection('Customers').doc(user.uid).set({
+          name: args.name,
+          email: args.email,
+          phone: args.phone,
+        });
+        console.log('muts', muts);
+
+        return (
+          { id: user.uid, email: user.email, displayName: user.displayName } ||
+          new ValidationError('User not created')
+        );
+      } catch (error: any) {
+        throw new ApolloError(error);
+      }
+    },
+  },
 };
 
 startApolloServer(typeDefs, resolvers);
@@ -77,6 +60,5 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
   await server.start();
   server.applyMiddleware({ app, path: '/', cors: true });
 }
-
 
 export const apiGraphql = functions.https.onRequest(app);

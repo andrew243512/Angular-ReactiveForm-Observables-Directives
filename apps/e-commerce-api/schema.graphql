@@ -18,8 +18,8 @@ type Suppliers {
 
 type UserRecord {
   email: String!
-  phoneNumber: String!
-  displayName: String!
+  id: String!
+  displayName: String
 }
 
 type Customer {

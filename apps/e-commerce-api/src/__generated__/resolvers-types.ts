@@ -83,9 +83,9 @@ export type Suppliers = {
 
 export type UserRecord = {
   __typename?: 'UserRecord';
-  displayName: Scalars['String']['output'];
+  displayName?: Maybe<Scalars['String']['output']>;
   email: Scalars['String']['output'];
-  phoneNumber: Scalars['String']['output'];
+  id: Scalars['String']['output'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -240,9 +240,9 @@ export type SuppliersResolvers<ContextType = any, ParentType extends ResolversPa
 }>;
 
 export type UserRecordResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserRecord'] = ResolversParentTypes['UserRecord']> = ResolversObject<{
-  displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  phoneNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
